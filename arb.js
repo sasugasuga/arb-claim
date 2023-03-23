@@ -48,9 +48,9 @@ async function main() {
 		if (allowance.gt(ethers.constants.Zero) ) {
 			console.log('allowance seems ok...');
 		}
-    else {
-      console.log('allowance seems not ok: ', ethers.utils.hexlify(allowance) );
-    }
+    		else {
+     	 		console.log('allowance seems not ok: ', ethers.utils.hexlify(allowance) );
+    		}
 		while (true) {
 			// claim
 			var claimAmtBn = await claimContract.claimableTokens(signer.address);
@@ -62,31 +62,31 @@ async function main() {
 				// console.log(currentBlock);
 				var delta = claimPeriodStart - currentBlock;
 				if (debug == false && currentBlock < claimPeriodStart ) {
-				  console.log('claim starts at block '+ claimPeriodStart +'. current: '+ currentBlock +' (wait '+ delta +' more blocks)')
-          await sleep(12000);
+				  	console.log('claim starts at block '+ claimPeriodStart +'. current: '+ currentBlock +' (wait '+ delta +' more blocks)')
+          				await sleep(12000);
 				}
 				else {
-          options.gasPrice = await provider.getGasPrice();
-          try {
-            await claimContract.callStatic.claim(options);  // test tx first
-            await claimContract.claim(options);
-            break;
-          } 
-          catch(claimerr) {
-            console.log('claim error:', claimerr.reason);
-            await sleep(1000);
-            // break;
-          }
+          				options.gasPrice = await provider.getGasPrice();
+         				try {
+					    await claimContract.callStatic.claim(options);  // test tx first
+					    await claimContract.claim(options);
+					    break;
+					 } 
+					 catch(claimerr) {
+					    console.log('claim error:', claimerr.reason);
+					    await sleep(1000);
+					    // break;
+					 }
 					await sleep(1000);
 					arbBalBn = await arbContract.balanceOf(signer.address);
 					arbBal = await ethers.utils.formatEther(arbBalBn);
-          if (arbBalBn.gte(claimAmtBn) ) {
-            console.log('>> claimed ARB: ', arbBal);
-            break;
-          }
+					if (arbBalBn.gte(claimAmtBn) ) {
+						console.log('>> claimed ARB: ', arbBal);
+						break;
+					}
 				}
 			}
-    }
+    	}
 	}
 	catch (error) {
 		console.log(error)
