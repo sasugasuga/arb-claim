@@ -27,9 +27,9 @@ const claimContract = new ethers.Contract('0x67a24CE4321aB3aF51c2D0a4801c3E111D8
 
 
 function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
+	  return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	  });
 }
 
 var options = {gasLimit: 800000};
@@ -48,9 +48,9 @@ async function main() {
 		if (allowance.gt(ethers.constants.Zero) ) {
 			console.log('allowance seems ok...');
 		}
-    		else {
-     	 		console.log('allowance seems not ok: ', ethers.utils.hexlify(allowance) );
-    		}
+    	else {
+     	 	console.log('allowance seems not ok: ', ethers.utils.hexlify(allowance) );
+    	}
 		while (true) {
 			// claim
 			var claimAmtBn = await claimContract.claimableTokens(signer.address);
